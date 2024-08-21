@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Header />
-        <main className="min-h-screen pt-16" data-theme="dim">
+        <main className="min-h-screen pt-16" data-theme="bumblebee">
           {children}
         </main>
       </body>

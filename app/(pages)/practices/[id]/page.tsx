@@ -1,3 +1,5 @@
+import fs from 'fs/promises'
+import path from 'path'
 import MarkdownContent from '@/app/components/MarkdownContent'
 import markdownToHtml from '@/app/utils/markdownToHtml'
 import { NextPage } from 'next'
@@ -7,22 +9,29 @@ interface Props {
 }
 
 const PracticePage: NextPage<Props> = async ({ params }) => {
-    const markdown = await markdownToHtml(`
-# Practices Index Page
+    const filePath = path.join(process.cwd(), 'public', 'practices', `${params.id}.md`)
 
-You're designing a social media platform that needs to handle millions of users,
-each with profiles, posts, and connections.
-The platform needs to scale quickly and handle frequent updates to user profiles.
-Which type of database would you choose and why?
+    try {
+        const fileContent = await fs.readFile(filePath, 'utf8')
+        const markdown = await markdownToHtml(fileContent)
 
-\`\`\`python
-print("hello world")
-\`\`\`
-
-    `)
-    return <article className="prose prose-stone prose-code:text-blue-600 text-center">
-        <MarkdownContent content={markdown} />
-    </article>
+        return (
+            <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+                <div className="max-w-3xl mx-auto">
+                    <article className="bg-white shadow-md rounded-lg overflow-hidden">
+                        <div className="px-6 py-8">
+                            <div className="prose prose-stone max-w-none">
+                                <MarkdownContent content={markdown} />
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        )
+    } catch (error) {
+        console.error('Error reading markdown file:', error)
+        return <div>Error loading content</div>
+    }
 }
 
 export default PracticePage
