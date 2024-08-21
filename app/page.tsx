@@ -11,10 +11,10 @@ interface PracticeTask {
 
 export default function Home() {
   const practiceQuestions: PracticeTask[] = [
+    { "id": "30552c76862ac6d733c8de79296757b8", "title": "Social Media Platform", "scopeLevel": "Medium", "description": "Design a database for a new social media platform." },
     { "id": "1", "title": "Sport Streaming Service", "scopeLevel": "Small", "description": "Design a backend system for live sports streaming." },
     { "id": "2", "title": "Design a Queue Service", "scopeLevel": "Small", "description": "Create a scalable queue service for message processing." },
     { "id": "3", "title": "Design a Notification Service", "scopeLevel": "Small", "description": "Develop a system to handle various types of notifications." },
-    { "id": "4", "title": "Social Media Platform", "scopeLevel": "Medium", "description": "Design the architecture for a new social media platform." },
     { "id": "5", "title": "Global E-commerce Platform", "scopeLevel": "Large", "description": "Design a scalable system for a worldwide e-commerce service." },
   ];
 

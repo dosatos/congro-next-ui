@@ -2,7 +2,7 @@
 
 ## 1. The Importance of Database Knowledge in System Design Interviews
 
-[System design](luink) interviews are a critical part of the hiring process for software engineering positions, especially for senior roles. Understanding databases is crucial in these interviews for several reasons:
+System design interviews are a critical part of the hiring process for software engineering positions, especially for senior roles. Understanding databases is crucial in these interviews for several reasons:
 
 1. **Data Storage and Retrieval**: Almost every system needs to store and retrieve data efficiently. Your choice of database can significantly impact the system's performance and scalability.
 

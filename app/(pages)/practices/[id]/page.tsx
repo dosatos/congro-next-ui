@@ -16,17 +16,7 @@ const PracticePage: NextPage<Props> = async ({ params }) => {
         const markdown = await markdownToHtml(fileContent)
 
         return (
-            <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-                <div className="max-w-3xl mx-auto">
-                    <article className="bg-white shadow-md rounded-lg overflow-hidden">
-                        <div className="px-6 py-8">
-                            <div className="prose prose-stone max-w-none">
-                                <MarkdownContent content={markdown} />
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            </div>
+            <MarkdownContent content={markdown} />
         )
     } catch (error) {
         console.error('Error reading markdown file:', error)

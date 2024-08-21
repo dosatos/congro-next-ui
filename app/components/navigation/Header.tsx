@@ -35,9 +35,9 @@ const Header = () => {
         <header className={`fixed top-0 left-0 right-0 z-50 navbar bg-amber-400 text-gray-800 shadow-md transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'}`}>
             <div className="container mx-auto px-4">
                 <div className="flex-1">
-                    <Link href="/" className="flex items-center hover:text-amber-700 transition-colors duration-200">
+                    <Link href="/" className="flex items-center text-purple-700 hover:text-purple-900 transition-colors duration-200">
                         <GripHorizontal className="w-6 h-6 mr-2" />
-                        <span className="text-xl font-bold">Congro</span>
+                        <span className="text-xl font-bold text-purple-700 hover:text-purple-900">Congro</span>
                     </Link>
                 </div>
             </div>
