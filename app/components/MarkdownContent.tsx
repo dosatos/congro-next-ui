@@ -10,9 +10,9 @@ const MarkdownContent: React.FC<MarkdownContentProps> = ({ content }) => {
             <article className="bg-white shadow-md rounded-lg overflow-hidden border-t-4 border-t-amber-400">
                 <div className="px-6 py-8">
                     <div className="prose max-w-none
-                    prose-h1:text-purple-800
-                    prose-headings:text-purple-600
-                    prose-h3:text-purple-800
+                    prose-h1:text-amber-700
+                    prose-headings:text-amber-600
+                    prose-h3:text-amber-700
                     prose-p:text-gray-800
                     prose-a:text-purple-700 prose-a:no-underline hover:prose-a:text-purple-900 hover:prose-a:underline
                     prose-strong:text-amber-700

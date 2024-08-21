@@ -38,7 +38,7 @@ export default function Home() {
                   <tr key={question.id} className="hover:bg-amber-100 border-b border-amber-200">
                     <th className="text-gray-600 hidden md:table-cell">{index + 1}</th>
                     <td className="font-medium">
-                      <Link href={`/practices/${question.id}`} className="flex items-center text-amber-700 hover:text-amber-900">
+                      <Link href={`/practice/${question.id}`} className="flex items-center text-amber-700 hover:text-amber-900">
                         <BookOpen className="w-5 h-5 mr-2" />
                         <span>{question.title}</span>
                       </Link>

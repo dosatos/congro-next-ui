@@ -9,7 +9,7 @@ interface Props {
 }
 
 const PracticePage: NextPage<Props> = async ({ params }) => {
-    const filePath = path.join(process.cwd(), 'public', 'practices', `${params.id}.md`)
+    const filePath = path.join(process.cwd(), 'public', 'practice', `${params.id}.md`)
 
     try {
         const fileContent = await fs.readFile(filePath, 'utf8')
