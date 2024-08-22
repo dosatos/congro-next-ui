@@ -1,7 +1,14 @@
 import Link from 'next/link';
 import React from 'react';
 
-const roadmapSections = [
+interface Step {
+    id: string;
+    title: string;
+    description: string;
+    completed: boolean;
+}
+
+const roadmapSections: { title: string, steps: Step[] }[] = [
     {
         title: "Fundamentals",
         steps: [
@@ -29,7 +36,10 @@ const roadmapSections = [
     }
 ];
 
-const TimelineStep = ({ step, isLast }) => {
+const TimelineStep: React.FC<{
+    step: Step;
+    isLast: boolean;
+}> = ({ step, isLast }) => {
     const title = step.title
     const completed = step.completed
     return (
@@ -50,7 +60,10 @@ const TimelineStep = ({ step, isLast }) => {
     )
 };
 
-const TimelineSection = ({ title, steps }) => (
+const TimelineSection: React.FC<{
+    title: string;
+    steps: Step[];
+}> = ({ title, steps }) => (
     <div className="mb-12">
         <h2 className="text-2xl font-bold mb-4 text-center text-amber-600">{title}</h2>
         <ul className="timeline timeline-vertical">
