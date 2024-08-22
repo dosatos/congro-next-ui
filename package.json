@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "package": "npm run build && npm prune --production && zip -r function.zip node_modules dist package.json"
   },
   "dependencies": {
+    "@vendia/serverless-express": "^4.12.6",
+    "express": "^4.19.2",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.428.0",
     "next": "14.2.5",
@@ -25,7 +28,8 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.14",
-    "@types/node": "^20",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.16.1",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
@@ -37,6 +41,6 @@
     "postcss": "^8",
     "prettier": "^2.0.0",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5.5.4"
   }
 }
