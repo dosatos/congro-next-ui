@@ -1,42 +1,55 @@
-name: Deploy NestJS to AWS Lambda
+name: Deploy to AWS Lambda
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main  # or your default branch name
+
+env:
+  AWS_REGION: us-west-1  # Replace with your AWS region
+  ECR_REPOSITORY: congro-ui  # Replace with your ECR repository name
+  LAMBDA_FUNCTION_NAME: congro-ui  # Replace with your Lambda function name
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Use Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18'
-
-    - name: Install dependencies
-      run: npm ci
-
-    - name: Build and package
-      run: npm run package
+    - name: Checkout code
+      uses: actions/checkout@v3
 
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@v2
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-west-1  # Change this to your AWS region
+        aws-region: ${{ env.AWS_REGION }}
 
-    - name: Upload to S3
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push image to Amazon ECR
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: ${{ github.sha }}
       run: |
-        aws s3 cp function.zip s3://congro-ui-deployment-bucket-us-west-1/function-${{ github.sha }}.zip
+        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-
-    - name: Update Lambda Function
+    - name: Update Lambda function
       run: |
         aws lambda update-function-code \
-          --function-name congro-ui \
-          --s3-bucket congro-ui-deployment-bucket-us-west-1 \
-          --s3-key function-${{ github.sha }}.zip
+          --function-name ${{ env.LAMBDA_FUNCTION_NAME }} \
+          --image-uri ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+
+    - name: Test Lambda function
+      run: |
+        RESPONSE=$(aws lambda invoke --function-name ${{ env.LAMBDA_FUNCTION_NAME }} --payload '{}' output.json)
+        STATUS_CODE=$(echo $RESPONSE | jq -r '.StatusCode')
+        if [ $STATUS_CODE -eq 200 ]; then
+          echo "Lambda function invoked successfully"
+        else
+          echo "Lambda function invocation failed"
+          exit 1
+        fi
